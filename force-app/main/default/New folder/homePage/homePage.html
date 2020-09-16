@@ -1,0 +1,30 @@
+<template>
+    <lightning-card>
+        <div class="slds-card__body_inner">
+            <div class="slds-p-around_xx-small">
+            <!--article class="slds-card slds-card_boundary"-->
+                <template if:true={showhomepage}>
+                <s1>View Scheduled Events</s1><br><br>
+                <s2>Take a look at all the events scheduled across the city and register for the one you wish to be a part of.</s2><br><br>
+
+               <lightning-button label="Explore Now" variant="neutral" onclick={handleExplore}></lightning-button><br><br>
+               <br>
+               <br>
+               <br>
+               
+               <s1>Already Registered?</s1> <br><br>
+                <lightning-button label="Manage my reservation >" variant="neutral" onclick={handleManage}></lightning-button><br>
+            </template>
+             <template if:true={showeventregistration}>
+               <c-event-register onback={handleBack}></c-event-register>
+            </template>
+            <template if:true={showeventcancellation}>
+               <c-cancel-event-registration onback={handleBack}></c-cancel-event-registration>
+            </template>
+            <!--/article-->
+        </div>
+    </div>
+    </lightning-card>
+
+
+</template>

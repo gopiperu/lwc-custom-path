@@ -1,0 +1,7 @@
+<template>
+    <template if:true={criteriaList} for:each={criteriaList} for:item="criteriaItem">
+        <template if:true={criteriaItem}>
+            <c-criteria-item key={criteriaItem.Id} onoptionchange={handleChange1} criteria={criteriaItem}></c-criteria-item>
+        </template>
+    </template>
+</template>

@@ -1,0 +1,21 @@
+s1 {
+    font-size: large;
+    /* font-weight: bold;*/
+    color: black;
+}
+
+.img-margin {
+    margin-left: 100px;
+    margin-bottom: 30px;
+}
+
+.large-font {
+    font-size: large;
+    /* font-weight: bold;*/
+    color: black;
+}
+
+.error-font {
+    color: rgb(194, 57, 52);
+    font-weight: bold;
+}

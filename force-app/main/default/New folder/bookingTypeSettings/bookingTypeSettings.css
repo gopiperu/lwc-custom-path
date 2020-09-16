@@ -1,0 +1,11 @@
+.errorMsgDiv{
+ padding: 5px;
+ margin:10px;
+ background-color:#ffd1d1;
+ font-size:13px;
+ color: #000000;
+ border-radius: 8px;
+ border: 1px solid #a82525;
+ 
+ 
+}

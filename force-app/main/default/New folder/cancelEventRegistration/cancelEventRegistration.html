@@ -1,0 +1,69 @@
+<template>
+ <!--template if:true={cancelregisterbutton}>
+    <div class="slds-p-around_x-small">
+        <lightning-button label="Cancel Registration" variant="brand" onclick={cancelRegistration}></lightning-button>
+   </div>
+ </template-->
+ <template if:true={confirmation}>
+    <lightning-card>
+        <s1 slot=title>Cancel Event Registration</s1>
+        <div class="slds-card__body_inner">
+            <article class="slds-card slds-card_boundary">
+        
+    <lightning-layout multiple-rows="true">
+          <!--lightning-layout-item size="4"-->
+        <div class="slds-p-around_medium">
+            <s2>Confirmation Code
+            <lightning-input label="Confirmation code" type="text" onchange={handleCodeChange} variant="label-hidden" class="slds-m-bottom_x-small"></lightning-input>
+             Email
+            <lightning-input label="Email" type="email" onchange={handleEmailChange} variant="label-hidden" class="slds-m-bottom_x-small"></lightning-input>
+            <div class="slds-p-around_x-small">
+                 <lightning-button label="Cancel Registration" variant="brand" onclick={updateRegistration}></lightning-button>
+            </div>
+            </s2>
+        </div>
+          <!--/lightning-layout-item-->
+    </lightning-layout>
+</article>
+</div>
+</lightning-card>
+  </template>
+
+  <!--template if:true={secondconfirmation}>
+    <lightning-card title="Cancel Event Registration" icon-name="standard:record">
+        <div class="slds-m-around_medium">
+            <lightning-output-field label="First Name" type="string" class="slds-m-bottom_x-small"></lightning-output-field>
+            <lightning-output-field label="Last Name" type="string"  class="slds-m-bottom_x-small"></lightning-output-field>
+            <lightning-output-field label="Number of seats booked" type="number" class="slds-m-bottom_x-small"></lightning-output-field>
+ 
+            <lightning-button label="Confirm Cancellation" variant="brand" onclick={cancelRegistration}></lightning-button>
+        </div>
+    </lightning-card>
+  </template-->
+<template if:true={canceled}>
+<lightning-card>  
+    <div class="slds-card__body_inner">
+        <article class="slds-card slds-card_boundary">
+    <div class="slds-p-around_medium">
+        <template if:false={errorincancelation}>
+            <s1>Thank you!</s1><br>
+             <s2>Your booking has been canceled successfully.</s2> <br>
+             
+             <lightning-button label="Back" variant="brand" onclick={handleback}></lightning-button>
+        
+        </template>
+        <template if:true={errorincancelation}>
+            <s1>Sorry!</s1><br>
+            <s2>Booking could not be canceled. Please try again.</s2> <br>
+            
+            <lightning-button label="Back" variant="brand" onclick={handleback}></lightning-button>
+        
+        </template>
+
+    </div>
+    </article>
+    </div>
+</lightning-card>  
+</template>
+    
+</template>

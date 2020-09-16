@@ -1,0 +1,131 @@
+<!--
+  @File Name          : bookingRegistrationComponent
+  @Description        : 
+  @Author             : Zeeman@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : Zeeman@UserSettingsUnder.SFDoc
+  @Last Modified On   : 6/10/2020, 2:17:25 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    6/10/2020   Zeeman@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+    <lightning-card title="">
+        <s1 slot="title">Book an appointment</s1>
+        <template if:true={showlandingPage}>
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="12" medium-device-size="5" small-device-size="12" padding="around-small">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="slds-text-body_regular">
+                                    Now, you can book an appointment with our staff in easy steps.
+                                    <br />
+                                    Select the type of appointment to continue.
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <lightning-combobox name="BookingType" label="" placeholder="Select Booking Type"
+                                    options={bookingTypes} onchange={handleTypeChange}>
+                                </lightning-combobox>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="slds-p-top_large slds-m-top_large">
+                        <lightning-button variant="brand" label="Next" title="Next" onclick={handleNextClick}
+                            class="slds-m-left_x-small slds-p-top_large"></lightning-button>
+                    </div>
+                </lightning-layout-item>
+                <div class="slds-p-left_large img-margin">
+                    <img src="https://rop-covid19-demo--c.documentforce.com/servlet/servlet.ImageServer?id=0155w0000026fmi&oid=00D5w000002sDpK&lastMod=1592486176000"
+                        width="200px" height="200px" style="float: right;" />
+                </div>
+                <lightning-layout-item padding="around-small" size="12" medium-device-size="5" small-device-size="12">
+                    <div class="header-column large-font">
+                        Already have an appointment?
+                    </div>
+                    <div class="header-column">
+                        <a href="javascript:void(0)" onclick={handleManageMyAppointmentClick}>Manage My Appointments
+                            ></a>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+        <template if:true={showManageMyAppointmentConfirmPage}>
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="12" medium-device-size="5" small-device-size="12" padding="around-small">
+                    <template if:true={MMAerror}>
+                        <div class="error-font slds-p-left_medium slds-p-bottom_medium">
+                            {MMAerror}
+                        </div>
+                    </template>
+                    <div class="slds-p-bottom_large slds-p-left_large slds-p-right_large">
+                        <lightning-input type="email" name="Email" label="Email" onchange={handleMMAInputChange}>
+                        </lightning-input>
+                        <lightning-input type="phone" name="Phone" label="Mobile Phone" onchange={handleMMAInputChange}>
+                        </lightning-input>
+                        <lightning-input type="text" name="ConfirmCode" label="Confirmation Code" required
+                            onchange={handleMMAInputChange}></lightning-input>
+                        <div class="slds-p-top_large">
+                            <lightning-button variant="brand" label="Next" title="Next"
+                                onclick={handleMMAConfirmPageNextClick} class="slds-m-left_x-small"></lightning-button>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+        <template if:true={showMMABookingDetailPage}>
+            <lightning-layout-item padding="around-small" size="12" medium-device-size="5" small-device-size="12">
+                <div class="slds-p-bottom_large slds-p-left_large slds-p-right_large">
+                    <div class="header-column large-font">
+                        Appointment Information:
+                    </div>
+                    <br />
+                    Type: {MMABookingType}
+                    <br />
+
+                    Confirmation code: {MMAConfirmCode}
+                    <br />
+                    Start Time: {MMAStartTime}
+                    <br />
+                    End Time: {MMAEndTime}
+                    <br />
+                    <div class="header-column slds-p-top_large">
+                        <a href="javascript:void(0)" onclick={handleManageMyAppointmentCancelClick} data-id={MMAId}>
+                            Cancel this appointment
+                        </a>
+                    </div>
+                </div>
+
+            </lightning-layout-item>
+        </template>
+        <template if:true={showContactInfoStep}>
+            <div class="slds-p-bottom_large slds-p-left_large slds-p-right_large" style="width: 80%;">
+                <lightning-record-edit-form object-api-name="Contact">
+                    <lightning-messages></lightning-messages>
+                    <lightning-input-field field-name="FirstName" onchange={handleContactInputChange}>
+                    </lightning-input-field>
+                    <lightning-input-field field-name="LastName" onchange={handleContactInputChange}>
+                    </lightning-input-field>
+                    <lightning-input-field field-name="MobilePhone" onchange={handleContactInputChange}>
+                    </lightning-input-field>
+                    <lightning-input-field field-name="Email" onchange={handleContactInputChange}>
+                    </lightning-input-field>
+                </lightning-record-edit-form>
+            </div>
+            <div>
+                <lightning-button variant="brand" label="Next" title="Next" name="booking" onclick={handleBookingClick}
+                    class="slds-m-left_x-small"></lightning-button>
+            </div>
+        </template>
+        <template if:true={showCalendar}>
+            <c-booking-calendar contact-id={contactId} type-id={selectedTypeId} type-name={selectedTypeName}>
+                type-name={selectedTypeName}
+            </c-booking-calendar>
+        </template>
+    </lightning-card>
+</template>

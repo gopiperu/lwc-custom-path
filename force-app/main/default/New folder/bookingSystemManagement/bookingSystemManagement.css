@@ -1,0 +1,11 @@
+.slds-modal__container {
+    max-width: 60rem !important;
+}
+
+.slds-modal__content {
+    /* min-height: 400px !important; */
+}
+
+.slds-table_header-fixed_container {
+    /* height: 200px !important; */
+}

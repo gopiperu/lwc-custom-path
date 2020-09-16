@@ -1,0 +1,187 @@
+<template>
+    <template if:true={showeventinformation}>
+    <lightning-card icon-name="standard:topic">
+       <s1 slot=title>Events</s1>
+        <div class="slds-card__body_inner">
+            <article class="slds-card slds-card_boundary">
+            <template if:true={data}>
+				<!--lightning-layout multiple-rows="true" pull-to-boundary="small"-->
+					<template for:each={data} for:item="event">
+						<lightning-layout-item key={event.Id} size="3" class="slds-p-around_x-small">
+                            
+                            <c-event-register-details event={event} onselected={handleRegister}>
+                            </c-event-register-details>
+
+						</lightning-layout-item>
+					</template>
+				<!--/lightning-layout-->
+            </template>
+            <template if:true={error}>
+				<div class="slds-text-color_error">
+					An error occurred while loading the event list
+				</div>
+            </template>
+        </article>
+        </div>
+        <div class="slds-m-around_medium">
+            <p class="slds-m-vertical_medium content">
+                    <s3> Displaying {startingRecord} to {endingRecord} of {totalRecountCount} records.
+                     Page {page} of {totalPage}. </s3> </p>
+            <c-paginator onprevious={previousHandler} onnext={nextHandler}></c-paginator>
+        </div>
+    </lightning-card>
+</template>
+     
+    
+    <template if:true={showregisterform}>
+    <lightning-card >
+    
+    <s1 slot=title>Event Registration</s1>
+    <div class="slds-card__body_inner" style="font-size:medium" >
+    <lightning-record-edit-form  object-api-name="Event_Registration__c" onload={handleLoad} onsubmit={handleSubmit} onsuccess={handleSuccess} onerror={handleError}>
+        
+       <template if:true={showspinner}>
+            <!--lightning-spinner alternative-text="Loading"></lightning-spinner-->
+
+        <lightning-messages>
+        </lightning-messages>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="6">
+           <s2>First Name</s2> 
+           <lightning-input-field field-name="First_name__c" variant="label-hidden" required> </lightning-input-field><br>
+           
+           <s2>Last Name</s2>
+           <lightning-input-field field-name="Last_name__c" variant="label-hidden" required> </lightning-input-field><br>
+           
+           <s2>Email</s2>
+           <lightning-input-field field-name="Email__c" variant="label-hidden" required> </lightning-input-field><br>
+           
+           <s2>Mobile Phone</s2>
+           <lightning-input-field field-name="Mobile_Phone__c" variant="label-hidden" > </lightning-input-field><br>
+           
+           <s2>Number of Seats Requested</s2>
+           <lightning-input-field field-name="Number_of_Seats_Requested__c" variant="label-hidden" required> </lightning-input-field>
+           <lightning-input-field field-name="Event_Name__c" value={currenteventid} class="slds-hidden" variant="label-inline"> </lightning-input-field><br>
+           
+           <lightning-button class="slds-m-top_small" type="submit" label="Submit" > </lightning-button>
+           <lightning-input-field field-name="Registration_Status__c" class="slds-hidden" variant="label-inline"> </lightning-input-field>
+           <lightning-input-field field-name="Confirmed_Seats__c"  class="slds-hidden" variant="label-inline"> </lightning-input-field>
+           <lightning-input-field field-name="Waitlist_Seats__c"  class="slds-hidden" variant="label-inline"> </lightning-input-field>
+           </lightning-layout-item> 
+    </lightning-layout>  
+
+    <!--lightning-layout >
+      <lightning-layout-item size="6">
+        <div class="slds-p-around_x-small">
+            <lightning-button class="slds-m-top_small" type="submit" label="Submit" > </lightning-button>
+         </div>
+        <!lightning-input-field field-name="Event_Name__c" value={currenteventid} class="slds-hidden"> </lightning-input-field-->
+        <!--lightning-input-field field-name="Registration_Status__c" class="slds-hidden"> </lightning-input-field>
+        <lightning-input-field field-name="Confirmed_Seats__c"  class="slds-hidden"> </lightning-input-field-->
+        <!--lightning-input-field field-name="Waitlist_Seats__c"  class="slds-hidden"> </lightning-input-field-->
+ 
+      <!--/lightning-layout-item>
+    </lightning-layout-->
+ 
+    </template>
+    </lightning-record-edit-form>
+    </div>
+    </lightning-card>
+    </template>
+
+        <!--template if:true={registrationid}-->
+            <template if:true={confirmbooking}>
+                <div class="slds-p-around_medium">
+                <s1>Congratulations!</s1><br>
+                <s2>Thank you for showing your interest in the event. Your booking confirmation code is {confirmedid}.<br>
+                    An email will be shortly sent to your email id with the details about the booking.</s2> <br>
+           
+                    <lightning-button label="Back" variant="brand" onclick={handleback}></lightning-button>
+                </div>
+           </template>
+           <template if:true={waitlistbooking}>
+            <div class="slds-p-around_medium">
+                <s1>Congratulations!</s1><br>
+                <s2>Thank you for showing your interest in the event. Your booking status is waitlist and booking code is {confirmedid}.<br>
+                    An email will be shortly sent to your email id with the details about the booking.</s2> <br>
+            
+                    <lightning-button label="Back" variant="brand" onclick={handleback}></lightning-button>
+                </div>
+        </template>
+
+        <!--/template-->
+
+  <template if:true={showmodalbox}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <!-- Modal/Popup Box Header Starts here-->
+            <header class="slds-modal__header">
+                <!--lightning:buttonIcon iconName="utility:close"
+                                      onclick="{! c.closeModel }"
+                                      alternativeText="close"
+                                      variant="bare-inverse"
+                                      class="slds-modal__close"/-->
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Confirm Booking</h2>
+            </header>
+            <!--Modal/Popup Box Body Starts here-->
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <p><b>Not all confirmed seats available, are you ok to book
+                    in waitilist?
+                    </b>
+                </p>
+            </div>
+            <!--Modal/Popup Box Footer Starts here-->
+            <footer class="slds-modal__footer">
+                <lightning-button
+                class="slds-m-top_small"
+                type="submit"
+                label="Continue"
+                onclick={handleContinue}
+                > </lightning-button>
+                <lightning-button
+                class="slds-m-top_small"
+                type="submit"
+                label="Cancel"
+                onclick={handleCancel}
+                > </lightning-button>
+   
+            </footer>
+        </div>
+    </section>
+
+  </template>
+
+  <template if:true={showexitmodalbox}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <!-- Modal/Popup Box Header Starts here-->
+            <header class="slds-modal__header">
+                <!--lightning:buttonIcon iconName="utility:close"
+                                      onclick="{! c.closeModel }"
+                                      alternativeText="close"
+                                      variant="bare-inverse"
+                                      class="slds-modal__close"/-->
+                <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Booking not allowed</h2>
+            </header>
+            <!--Modal/Popup Box Body Starts here-->
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                <p><b> Sorry! Cannot complete your registration as number of seats requested is not available.
+                    </b>
+                </p>
+            </div>
+            <!--Modal/Popup Box Footer Starts here-->
+            <footer class="slds-modal__footer">
+               
+                <lightning-button
+                class="slds-m-top_small"
+                type="submit"
+                label="Cancel"
+                onclick={handleCancel}
+                > </lightning-button>
+   
+            </footer>
+        </div>
+    </section>
+
+  </template>
+</template>

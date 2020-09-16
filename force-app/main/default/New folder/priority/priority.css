@@ -1,0 +1,18 @@
+.meterStyle
+{
+    width: 100%;
+}
+
+meter {
+    height: 2rem;
+  }
+  
+  meter::before {
+    
+  }
+  
+  meter::after {
+    
+  }
+
+  

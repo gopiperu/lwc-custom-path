@@ -1,0 +1,21 @@
+<template>
+    <lightning-layout>
+        <lightning-layout-item padding="around-small" size="2">
+            <span>{criteria.value}</span>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size=10 if:false={isRange}>
+            <c-criteria-select-option onoptionchange={handleChange} criteria-id={criteria.Id} option-values={criteria.options} current-option={currentOption}></c-criteria-select-option>
+        </lightning-layout-item>  
+        <lightning-layout-item padding="around-small" size=10 if:true={isRange}>
+            <lightning-layout>
+                <lightning-layout-item size="10">
+                    <lightning-slider label="Volume" min="10000" max="1000000" value={val} variant="label-hidden">
+                    </lightning-slider>
+                </lightning-layout-item>
+                <lightning-layout-item size="2">
+                    <lightning-input type="number" name="input7" value={val} formatter="currency" step="0.01"></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

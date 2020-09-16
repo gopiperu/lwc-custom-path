@@ -1,0 +1,27 @@
+<template>
+  <lightning-card>
+    <div class="slds-p-horizontal_large">
+      <s1 slot=title>Think you might have COVID-19 (coronavirus)?</s1>
+
+      <div class="slds-text-body_regular slds-m-top_large">
+        Visit an assessment centre to get a COVID-19 test.
+        <br />
+        You can also
+        take a self-assessment to help you decide if you need a test.
+      </div>
+    </div>
+
+    <div class="slds-m-top_large slds-text-body_regular slds-p-left_medium">
+      <lightning-button variant="brand" label="Find an assessment centre" title="SavFind an assessment centree"
+        onclick={handleFindAssessmentCentreClick} class="slds-m-left_x-small btn"></lightning-button>
+      <lightning-button variant="brand" label="Take a self-assessment" title="Take a self-assessment"
+        onclick={handleTakeAssessmentClick} class="slds-m-left_x-small btn"></lightning-button>
+    </div>
+
+    <div slot="footer">
+      <div class="slds-text-body_regular">
+        Do not call 911 unless it is an emergency.
+      </div>
+    </div>
+  </lightning-card>
+</template>

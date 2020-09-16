@@ -1,0 +1,31 @@
+<template>
+    
+    <lightning-card >
+        <s1 slot=title>{event.Name}</s1>
+        <div class="slds-card__body_inner">
+            <article class="slds-card slds-card_boundary">
+                <div class="slds-p-around_xx-small">
+                <s2>
+                
+                    <p class="slds-m-bottom_small">{event.Event_Description__c} </p>
+                    <p class="slds-m-bottom_small">From Date/Time: {event.Event_Start_Date__c}   {event.Event_Start_Time__c}</p>
+                    <p class="slds-m-bottom_small">To Date/Time: {event.Event_End_Date__c}   {event.Event_End_Time__c}</p>
+                    <p class="slds-m-bottom_small">Venue: {event.Venue__c} {event.Venue_Address__c} {event.Venue_Address2__c}
+                        {event.Venue_City__c} {event.Venue_State__c} {event.Venue_Postal_Code__c}
+                    </p>
+                    <p class="slds-m-bottom_small">Total Seats: {event.Maximum_Capacity__c} </p>
+                    <p class="slds-m-bottom_small">Available Seats: {event.Available_Seats__c}   &NonBreakingSpace;
+                        <lightning-button variant="brand" label="Register Now" onclick={handleRegisterClick} class="slds-m-right_x-medium" >
+                        </lightning-button>
+                        </p>
+
+                </s2>  
+            </div>
+                
+        </article>
+        </div>
+       
+    </lightning-card>
+
+
+</template>
